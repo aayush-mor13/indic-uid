@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "indic-uid"
+version = "0.1.0"
+description = "A simple library for generating short, unique identifiers using characters from various Indian language scripts."
+readme = "README.md"
+authors = [
+    {name = "Aayush Mor", email = "aayushmor13@gmail.com"},
+    {name = "Jay Gala", email = "jaygala260@gmail.com"},
+    {name = "Gaurav Sarkar", email = "sarkargaurav92@gmail.com"}
+]
+maintainers = [
+    {name = "Aayush Mor", email = "aayushmor13@gmail.com"},
+]
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+keywords = ["uid", "id generator", "indic uids", "indian scripts", "indian scripts uid", "unicode"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Intended Audience :: Developers",
+]
+
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/aayush-mor13/indic-uid"
+Documentation = "https://github.com/aayush-mor13/indic-uid#readme"
+Repository = "https://github.com/aayush-mor13/indic-uid"
