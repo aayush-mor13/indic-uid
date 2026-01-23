@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/indic-uid.svg)](https://badge.fury.io/py/indic-uid)
 [![Python Versions](https://img.shields.io/pypi/pyversions/indic-uid.svg)](https://pypi.org/project/indic-uid/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+ 
 Generate short, unique identifiers using characters from Indian language scripts (Devanagari, Gujarati, Kannada, Tamil, Telugu, Bengali) and English.
 
 Perfect for referral codes, short URLs, or any system requiring unique identifiers with an Indian language touch!
