@@ -4,7 +4,7 @@ from .character_sets import get_character_pool
 DEFAULT_LENGTH = 6
 
 
-def generate_id(length=DEFAULT_LENGTH, scripts=None, pronounceable=False):
+def generate_id(length=DEFAULT_LENGTH, scripts=None, pronounceable=False, include_numbers=False, numbers_only=False):
     """
     Generate a unique ID using Indian script characters.
     
@@ -14,6 +14,9 @@ def generate_id(length=DEFAULT_LENGTH, scripts=None, pronounceable=False):
                 'kannada', 'tamil', 'telugu', 'bengali'. If None, uses all.
         pronounceable: If True, alternates between vowels and consonants for 
                       better pronunciation (slightly reduces entropy)
+        include_numbers: If True, includes script-native number characters
+                        in the character pool (ignored when pronounceable=True)
+        numbers_only: If True, generates OTPs using only script-native digits
     
     Returns:
         str: Generated unique ID
@@ -27,9 +30,23 @@ def generate_id(length=DEFAULT_LENGTH, scripts=None, pronounceable=False):
         
         >>> generate_id(pronounceable=True, scripts=['devanagari'])
         'कअखइगउ'
+        
+        >>> generate_id(include_numbers=True, scripts=['devanagari'])
+        'क३ठ७अ२'
+        
+        >>> generate_id(numbers_only=True, scripts=['devanagari'])
+        '३७५२१९'
     """
     if length < 1:
         raise ValueError("Length must be at least 1")
+    
+    if numbers_only:
+        chars = get_character_pool(scripts, numbers_only=True)
+        
+        if not chars:
+            raise ValueError("No number characters available for selected scripts")
+        
+        return ''.join(secrets.choice(chars) for _ in range(length))
     
     if pronounceable:
         vowels, consonants = get_character_pool(scripts, pronounceable=True)
@@ -47,7 +64,7 @@ def generate_id(length=DEFAULT_LENGTH, scripts=None, pronounceable=False):
         
         return ''.join(id_chars)
     else:
-        chars = get_character_pool(scripts, pronounceable=False)
+        chars = get_character_pool(scripts, pronounceable=False, include_numbers=include_numbers)
         
         if not chars:
             raise ValueError("No characters available for selected scripts")
@@ -56,7 +73,7 @@ def generate_id(length=DEFAULT_LENGTH, scripts=None, pronounceable=False):
         return ''.join(secrets.choice(chars) for _ in range(length))
 
 
-def generate_batch(count, length=DEFAULT_LENGTH, scripts=None, pronounceable=False):
+def generate_batch(count, length=DEFAULT_LENGTH, scripts=None, pronounceable=False, include_numbers=False, numbers_only=False):
     """
     Generate multiple IDs at once.
     
@@ -65,8 +82,10 @@ def generate_batch(count, length=DEFAULT_LENGTH, scripts=None, pronounceable=Fal
         length: Length of each ID
         scripts: List of scripts to use
         pronounceable: Whether to generate pronounceable IDs
+        include_numbers: If True, includes script-native number characters
+        numbers_only: If True, generates OTPs using only script-native digits
     
     Returns:
         list: List of generated IDs
     """
-    return [generate_id(length, scripts, pronounceable) for _ in range(count)]
+    return [generate_id(length, scripts, pronounceable, include_numbers, numbers_only) for _ in range(count)]
