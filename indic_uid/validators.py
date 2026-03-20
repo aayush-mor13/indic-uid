@@ -1,6 +1,6 @@
 from .character_sets import get_character_pool
 
-def is_valid_id(id_string, scripts=None, length=None):
+def is_valid_id(id_string, scripts=None, length=None, include_numbers=False):
     """
     Validate if a string is a valid Indic ID.
     
@@ -8,6 +8,7 @@ def is_valid_id(id_string, scripts=None, length=None):
         id_string: The ID string to validate
         scripts: Expected scripts (None means any script is valid)
         length: Expected length (None means any length is valid)
+        include_numbers: If True, considers script-native numbers as valid
     
     Returns:
         bool: True if valid, False otherwise
@@ -18,7 +19,7 @@ def is_valid_id(id_string, scripts=None, length=None):
     if length is not None and len(id_string) != length:
         return False
     
-    valid_chars = set(get_character_pool(scripts))
+    valid_chars = set(get_character_pool(scripts, include_numbers=include_numbers))
     
     return all(char in valid_chars for char in id_string)
 
@@ -36,7 +37,7 @@ def get_script_of_char(char):
     from .character_sets import SCRIPTS
     
     for script_name, script_data in SCRIPTS.items():
-        if char in script_data['all']:
+        if char in script_data['all'] or char in script_data['numbers']:
             return script_name
     
     return None
