@@ -13,6 +13,7 @@ Perfect for referral codes, short URLs, or any system requiring unique identifie
 - 🎯 **Multiple Scripts**: Support for 7 Indian scripts (Devanagari, Gujarati, Kannada, Tamil, Telugu, Bengali, English)
 - 🔐 **Cryptographically Secure**: Uses Python's `secrets` module for secure random generation
 - 🎲 **Flexible Generation**: Choose between pure random or pronounceable IDs
+- 🔢 **Numeric Support**: Generate IDs with script-native numbers, or digits-only OTPs
 - ✅ **Validation Built-in**: Validate IDs and detect their script
 - 📊 **Collision Analysis**: Calculate probability of ID collisions
 - 🚀 **Zero Dependencies**: Lightweight, no external dependencies
@@ -49,6 +50,10 @@ print(id)  # Example: 'घअकआइश'
 # Generate pronounceable IDs (alternates vowels and consonants)
 id = generate_id(pronounceable=True, scripts=['devanagari'])
 print(id)  # Example: 'कअखइगउ'
+
+# Generate a numeric OTP in Devanagari
+otp = generate_id(length=6, scripts=['devanagari'], numbers_only=True)
+print(otp)  # Example: '३७५२१९'
 ```
 
 ## 📖 Usage Examples
@@ -99,6 +104,31 @@ print(id)  # Example: 'कअखइगउ' (ka-khi-gu)
 # Works with any script
 id = generate_id(pronounceable=True, scripts=['tamil'])
 print(id)  # Example: 'கஅசஇடஉ'
+```
+
+### Numeric IDs & OTPs
+
+Generate IDs that include or consist entirely of script-native number characters:
+
+```python
+# Include numbers in the character pool
+id = generate_id(length=8, scripts=['devanagari'], include_numbers=True)
+print(id)  # Example: 'क३ठ७अ२गइ' (mix of letters and digits)
+
+# Generate digits-only OTPs
+otp = generate_id(length=6, scripts=['devanagari'], numbers_only=True)
+print(otp)  # Example: '३७५२१९'
+
+# Tamil numeric OTP
+otp = generate_id(length=4, scripts=['tamil'], numbers_only=True)
+print(otp)  # Example: '௩௭௫௨'
+
+# Multi-script numeric OTP
+otp = generate_id(length=6, scripts=['devanagari', 'bengali'], numbers_only=True)
+print(otp)  # Example: '३৭५২১९'
+
+# Batch generate OTPs
+otps = generate_batch(count=10, length=6, scripts=['devanagari'], numbers_only=True)
 ```
 
 ### Validation
@@ -215,21 +245,21 @@ With default settings (6 characters, all 7 scripts):
 
 ## 🌐 Supported Scripts
 
-| Script | Example Characters | Total Characters |
-|--------|-------------------|------------------|
-| Devanagari (Hindi) | अ, क, ख, ग, घ | 41 |
-| Gujarati | અ, ક, ખ, ગ, ઘ | 41 |
-| Kannada | ಅ, ಕ, ಖ, ಗ, ಘ | 44 |
-| Tamil | அ, க, ங, ச, ஞ | 30 |
-| Telugu | అ, క, ఖ, గ, ఘ | 44 |
-| Bengali | অ, ক, খ, গ, ঘ | 40 |
-| English | a, b, c, d, e | 26
+| Script | Example Characters | Letters | Numbers |
+|--------|-------------------|---------|----------|
+| Devanagari (Hindi) | अ, क, ख, ग, घ | 41 | ०१२३४५६७८९ |
+| Gujarati | અ, ક, ખ, ગ, ઘ | 41 | ૦૧૨૩૪૫૬૭૮૯ |
+| Kannada | ಅ, ಕ, ಖ, ಗ, ಘ | 44 | ೦೧೨೩೪೫೬೭೮೯ |
+| Tamil | அ, க, ங, ச, ஞ | 30 | ௦௧௨௩௪௫௬௭௮௯ |
+| Telugu | అ, క, ఖ, గ, ఘ | 44 | ౦౧౨౩౪౫౬౭౮౯ |
+| Bengali | অ, ক, খ, গ, ঘ | 40 | ০১২৩৪৫৬৭৮৯ |
+| English | a, b, c, d, e | 26 | 0123456789 |
 
-**Total character pool**: ~240 characters across all scripts
+**Total character pool**: ~240 letters + 70 number characters across all scripts
 
 ## 🔧 API Reference
 
-### `generate_id(length=6, scripts=None, pronounceable=False)`
+### `generate_id(length=6, scripts=None, pronounceable=False, include_numbers=False, numbers_only=False)`
 
 Generate a unique ID.
 
@@ -237,17 +267,20 @@ Generate a unique ID.
 - `length` (int): Length of the ID (default: 6)
 - `scripts` (list): List of script names to use (default: all scripts)
 - `pronounceable` (bool): Alternate vowels/consonants (default: False)
+- `include_numbers` (bool): Include script-native digits in the character pool (default: False)
+- `numbers_only` (bool): Use only script-native digits — ideal for OTPs (default: False)
 
 **Returns:** String containing the generated ID
 
 **Example:**
 ```python
 id = generate_id(length=8, scripts=['devanagari', 'tamil'])
+otp = generate_id(length=6, scripts=['devanagari'], numbers_only=True)
 ```
 
 ---
 
-### `generate_batch(count, length=6, scripts=None, pronounceable=False)`
+### `generate_batch(count, length=6, scripts=None, pronounceable=False, include_numbers=False, numbers_only=False)`
 
 Generate multiple IDs at once.
 
@@ -256,17 +289,20 @@ Generate multiple IDs at once.
 - `length` (int): Length of each ID
 - `scripts` (list): List of script names
 - `pronounceable` (bool): Alternate vowels/consonants
+- `include_numbers` (bool): Include script-native digits
+- `numbers_only` (bool): Use only script-native digits
 
 **Returns:** List of generated IDs
 
 **Example:**
 ```python
 ids = generate_batch(100, length=5)
+otps = generate_batch(10, length=6, scripts=['tamil'], numbers_only=True)
 ```
 
 ---
 
-### `is_valid_id(id_string, scripts=None, length=None)`
+### `is_valid_id(id_string, scripts=None, length=None, include_numbers=False)`
 
 Validate if a string is a valid Indic ID.
 
@@ -274,6 +310,7 @@ Validate if a string is a valid Indic ID.
 - `id_string` (str): The ID to validate
 - `scripts` (list): Expected scripts (default: any)
 - `length` (int): Expected length (default: any)
+- `include_numbers` (bool): Consider script-native numbers as valid (default: False)
 
 **Returns:** Boolean
 
