@@ -10,7 +10,7 @@ from .validators import is_valid_id, get_script_of_char
 from .character_sets import get_available_scripts
 from .utils import calculate_collision_probability, estimate_safe_id_count
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __all__ = [
     'generate_id',
     'generate_batch',

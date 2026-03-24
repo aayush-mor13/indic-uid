@@ -437,6 +437,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Validation and script detection
 - Collision probability analysis
 
+### v0.2.0 (2026-03-24)
+- Added numeric ID support with script-native numbers
+- New feature: Digits-only OTP generation
+
 ---
 
 Made with ❤️ for the Indian developer community
