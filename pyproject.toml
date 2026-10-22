@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "indic-uid"
-version = "0.2.0"
+version = "0.2.1"
 description = "A simple library for generating short, unique identifiers using characters from various Indian language scripts."
 readme = "README.md"
 authors = [
@@ -29,6 +29,6 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/aayush-mor13/indic-uid"
+Homepage = "https://www.indilingo.ai"
 Documentation = "https://github.com/aayush-mor13/indic-uid#readme"
 Repository = "https://github.com/aayush-mor13/indic-uid"

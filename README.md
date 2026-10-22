@@ -8,6 +8,8 @@ Generate short, unique identifiers using characters from Indian language scripts
 
 Perfect for referral codes, short URLs, or any system requiring unique identifiers with an Indian language touch!
 
+Built by the team behind [Indilingo](https://www.indilingo.ai), the AI app to learn 22 Indian languages and 17+ world languages from any language.
+
 ## ✨ Features
 
 - 🎯 **Multiple Scripts**: Support for 7 Indian scripts (Devanagari, Gujarati, Kannada, Tamil, Telugu, Bengali, English)
@@ -441,6 +443,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Added numeric ID support with script-native numbers
 - New feature: Digits-only OTP generation
 
+### v0.2.1 (2026-10-22)
+- Updated project homepage to [indilingo.ai](https://www.indilingo.ai)
+
 ---
 
-Made with ❤️ for the Indian developer community
+Made with ❤️ for the Indian developer community by [Indilingo](https://www.indilingo.ai)
